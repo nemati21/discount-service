@@ -1,0 +1,26 @@
+{
+  "name": "discount-service",
+  "version": "1.0.0",
+  "description": "Discount Service",
+  "main": "index.js",
+  "scripts": {
+    "start": "env-cmd --file ./src/.env nodemon ./src/index.js"
+  },
+  "author": "Behnaz Nemati",
+  "license": "ISC",
+  "dependencies": {
+    "dotenv": "^10.0.0",
+    "fastify": "^3.22.0",
+    "fastify-swagger": "^4.12.4",
+    "generate-password": "^1.6.1",
+    "mongodb": "^4.1.3",
+    "uuid": "^8.3.2"
+  },
+  "devDependencies": {
+    "env-cmd": "^10.1.0",
+    "eslint": "^7.5.0",
+    "eslint-config-airbnb": "^18.2.0",
+    "eslint-plugin-import": "^2.22.0",
+    "eslint-plugin-security": "^1.4.0"
+  }
+}
