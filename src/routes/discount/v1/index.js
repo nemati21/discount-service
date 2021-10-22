@@ -4,14 +4,15 @@ const { schemaTypes } = require('../../../lib');
 const swaggerTag = 'Discount Service';
 
 module.exports = (fastify, options, next) => {
-  fastify.post('/discount/:count', {
+  fastify.post('/discount', {
     schema: {
-      description: 'Create discount code',
+      description: 'Create discount',
       tags: [swaggerTag],
-      params: {
+      body: {
         type: 'object',
-        required: ['count'],
+        required: ['amount', 'count'],
         properties: {
+          amount: schemaTypes.number,
           count: schemaTypes.number,
         },
       },
@@ -42,6 +43,7 @@ module.exports = (fastify, options, next) => {
         type: 'object',
         required: ['count'],
         properties: {
+          amount: schemaTypes.number,
           count: schemaTypes.number,
         },
       },
@@ -54,7 +56,7 @@ module.exports = (fastify, options, next) => {
 
   fastify.get('/discount/decrement/:code', {
     schema: {
-      description: 'Update discount',
+      description: 'Decrement discount count',
       tags: [swaggerTag],
       params: {
         type: 'object',
@@ -68,6 +70,7 @@ module.exports = (fastify, options, next) => {
         200: {
           type: 'object',
           properties: {
+            amount: schemaTypes.number,
             count: schemaTypes.number,
           },
         },

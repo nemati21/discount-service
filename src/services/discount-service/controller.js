@@ -2,28 +2,28 @@ const service = require('./service');
 const config = require('../../config');
 
 const create = async (req, res) => {
-  const { count } = req.params;
+  const { amount, count } = req.body;
   const code = service.codeGenerator(config.codeLength);
 
-  const result = await service.create(code, count);
+  const result = await service.create(code, amount, count);
 
   res.code(200).send({ code: result });
 };
 
 const update = async (req, res) => {
   const { code } = req.params;
-  const { count } = req.body;
+  const { amount, count } = req.body;
 
-  await service.update(code, count);
+  await service.update(code, amount, count);
   return res.code(204).send('');
 };
 
 const decrement = async (req, res) => {
   const { code } = req.params;
 
-  const count = await service.decrement(code);
+  const discount = await service.decrement(code);
 
-  return res.code(200).send({ count });
+  return res.code(200).send({ amount: discount.amount, count: discount.count });
 };
 
 const remove = async (req, res) => {

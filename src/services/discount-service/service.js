@@ -13,23 +13,24 @@ const find = async (code) => {
   return discount;
 };
 
-const create = async (code, count) => {
+const create = async (code, amount, count) => {
   const charge = await find(code);
 
   if (charge && !charge.count) {
     await model.update(code, count);
   } else {
-    await model.create(code, count);
+    await model.create(code, amount, count);
   }
 
   return code;
 };
 
-const update = async (code, count) => {
+const update = async (code, amount, count) => {
   const discount = await find(code);
   if (!discount) throw new customErrors.DiscountNotFoundError();
 
   if (count) discount.count = count;
+  if (amount) discount.amount = amount;
 
   const result = await model.update(code, discount);
   return result;
@@ -47,7 +48,7 @@ const decrement = async (code) => {
   }
 
   if (!result) throw new customErrors.RejectError();
-  return discount.count;
+  return discount;
 };
 
 const remove = async (code) => {

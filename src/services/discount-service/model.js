@@ -1,8 +1,9 @@
 const { db } = require('../../database');
 
-const create = async (code, count) => {
+const create = async (code, amount, count) => {
   await db.collection('discount').insertOne({
     code,
+    amount,
     count,
     createdts: new Date(new Date() - new Date().getTimezoneOffset() * 60000).toISOString(),
     updatedts: new Date(new Date() - new Date().getTimezoneOffset() * 60000).toISOString(),
@@ -43,6 +44,7 @@ const update = async (code, discount) => {
     {
       $set:
       {
+        amount: discount.amount,
         count: discount.count,
         updatedts: now,
       },
